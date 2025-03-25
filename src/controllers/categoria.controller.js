@@ -3,7 +3,7 @@ import { pool } from '../db.js';
 // Obtener todos llas categorias
 export const obtenerCategoria= async (req, res) => {
   try {
-    const [result] = await pool.query('SELECT * FROM Categorias');
+    const [result] = await pool.query('select * from Categorias');
     res.json(result);
   } catch (error) {
     return res.status(500).json({

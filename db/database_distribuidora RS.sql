@@ -114,3 +114,43 @@ INSERT INTO Compra_factura (N_Factura, ID_Proveedores, Fecha) VALUES
 INSERT INTO Venta_factura (ID_Cliente, Fecha) VALUES
 (1, '2024-03-15'),
 (2, '2024-03-16');
+
+
+
+-- Relaciones entre tablas
+ALTER TABLE venta_factura
+ADD CONSTRAINT FK_Venta_factura_Cliente
+FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente);  -- clientet y venta factura 
+
+ALTER TABLE detalle_venta_factura
+ADD CONSTRAINT FKñ_Detalle_Venta_Venta_factura
+FOREIGN KEY (NumeroFactura) REFERENCES Venta_factura(NumeroFactura); 
+
+ALTER TABLE Producto
+ADD CONSTRAINT FK_Categoria_Producto
+FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria); 
+
+ALTER TABLE detalle_venta_factura
+ADD CONSTRAINT FK_Producto_Detallecomprafactura 
+FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto);
+
+ALTER TABLE detallecomprafactura
+ADD CONSTRAINT FK_Categoria_Compra
+FOREIGN KEY (ID_CompraFactura) REFERENCES Compra_factura(ID_CompraFactura);
+
+ALTER TABLE compra_factura
+ADD CONSTRAINT FK_proveedores_compra
+FOREIGN KEY (ID_Proveedores) REFERENCES Proveedores(ID_Proveedores);
+
+ALTER TABLE producto
+ADD CONSTRAINT FK_proveedores_categoria
+FOREIGN KEY (ID_Categoria) REFERENCES categorias(ID_Categoria);
+
+ALTER TABLE producto
+ADD CONSTRAINT FK_proveedores_calificaciones 	
+FOREIGN KEY (ID_Calificacion) REFERENCES calificaciones(ID_Calificacion);
+
+
+
+
+

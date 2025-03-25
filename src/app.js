@@ -4,6 +4,7 @@ import rutasClientes from './routes/clientes.routes.js';
 import rutasUsuarios from './routes/usuarios.routes.js';
 import rutasProductos from './routes/productos.routes.js';
 import rutasProveedor from './routes/proveedor.routes.js';
+import rutasCategoria from './routes/categoria.routes.js';
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use('/api', rutasClientes);
 app.use('/api', rutasUsuarios);
 app.use('/api', rutasProductos);
 app.use('/api', rutasProveedor);
+app.use('/api', rutasCategoria);
+
 
 app.use((req, res, next) => {
   res.status(404).json({
