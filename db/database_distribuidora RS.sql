@@ -9,6 +9,15 @@ CREATE TABLE bitacoras (
     fecha DATETIME NOT NULL,
     tabla VARCHAR(20) NOT NULL
 );
+
+create table Tiempo (
+ID_Tiempo INT PRIMARY KEY auto_increment,
+Fecha DATE,
+Mes VARCHAR(20),
+Año INT,
+INDEX idx_fecha (Fecha)
+);
+
 CREATE TABLE Usuarios (
     usuario VARCHAR(20) PRIMARY KEY,
     contraseña VARCHAR(20)
@@ -44,7 +53,6 @@ CREATE TABLE Compra_factura (
 
 CREATE TABLE Detalle_venta_factura (
     ID_Detalle INT AUTO_INCREMENT PRIMARY KEY,
-    ID_Producto INT NOT NULL,
     Cantidad INT NOT NULL,
     NumeroFactura INT NULL,
     PrecioVenta DOUBLE NULL
@@ -80,8 +88,15 @@ CREATE TABLE Proveedores (
 CREATE TABLE Venta_factura (
     NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
     ID_Cliente INT NULL,
-    Fecha DATE NULL
+    ID_Tiempo INT,
+    ID_Producto INT NOT NULL
 );
+ALTER TABLE venta_factura DROP COLUMN Fecha;
+ALTER TABLE `distribuidora_rs`.`venta_factura` 
+ADD COLUMN `ID_Tiempo` INT NOT NULL AFTER `ID_Cliente`;
+ALTER TABLE `distribuidora_rs`.`venta_factura` 
+ADD COLUMN `ID_Producto` INT NOT NULL AFTER `ID_Tiempo`;
+
 
 -- Insertando registros en la tabla usuarios
 insert into Usuarios (usuario,contraseña)Values 
@@ -114,7 +129,6 @@ INSERT INTO Compra_factura (N_Factura, ID_Proveedores, Fecha) VALUES
 INSERT INTO Venta_factura (ID_Cliente, Fecha) VALUES
 (1, '2024-03-15'),
 (2, '2024-03-16');
-
 
 
 -- Relaciones entre tablas
