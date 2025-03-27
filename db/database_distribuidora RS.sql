@@ -10,6 +10,14 @@ CREATE TABLE bitacoras (
     tabla VARCHAR(20) NOT NULL
 );
 
+create table Catalogo (
+Categoria int primary key auto_increment,
+ID_Producto int,
+Descripcion varchar(100),
+PrecioProducto double,
+Imagen varchar(50)
+);
+
 create table Tiempo (
 ID_Tiempo INT PRIMARY KEY auto_increment,
 Fecha DATE,
@@ -159,10 +167,6 @@ FOREIGN KEY (ID_Proveedores) REFERENCES Proveedores(ID_Proveedores);
 ALTER TABLE producto
 ADD CONSTRAINT FK_proveedores_categoria
 FOREIGN KEY (ID_Categoria) REFERENCES categorias(ID_Categoria);
-
-ALTER TABLE producto
-ADD CONSTRAINT FK_proveedores_calificaciones 	
-FOREIGN KEY (ID_Calificacion) REFERENCES calificaciones(ID_Calificacion);
 
 
 
