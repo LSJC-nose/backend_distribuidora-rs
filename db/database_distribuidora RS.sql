@@ -55,12 +55,12 @@ CREATE TABLE Compra_factura (
     N_Factura INT NULL,
     ID_Proveedores INT NULL,
     Fecha DATETIME NULL,
-    Imagen LONGBLOB NULL,
-    FOREIGN KEY (ID_Proveedores) REFERENCES Proveedores(ID_Proveedores) ON DELETE CASCADE
+    Imagen LONGBLOB NULL
 );
 
 CREATE TABLE Detalle_venta_factura (
     ID_Detalle INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Producto Int,
     Cantidad INT NOT NULL,
     NumeroFactura INT NULL,
     PrecioVenta DOUBLE NULL
@@ -82,7 +82,8 @@ CREATE TABLE Producto (
     PrecioVenta DOUBLE NULL,
     nombreProducto VARCHAR(30) NULL,
     Descripcion VARCHAR(60) NULL,
-    UbicacionFotografia VARCHAR(160) NULL
+    UbicacionFotografia VARCHAR(160) NULL,
+    ID_catalogo int
 );
 
 CREATE TABLE Proveedores (
@@ -99,11 +100,6 @@ CREATE TABLE Venta_factura (
     ID_Tiempo INT,
     ID_Producto INT NOT NULL
 );
-ALTER TABLE venta_factura DROP COLUMN Fecha;
-ALTER TABLE `distribuidora_rs`.`venta_factura` 
-ADD COLUMN `ID_Tiempo` INT NOT NULL AFTER `ID_Cliente`;
-ALTER TABLE `distribuidora_rs`.`venta_factura` 
-ADD COLUMN `ID_Producto` INT NOT NULL AFTER `ID_Tiempo`;
 
 
 -- Insertando registros en la tabla usuarios
