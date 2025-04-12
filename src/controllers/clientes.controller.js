@@ -30,3 +30,42 @@ export const obtenerCliente = async (req, res) => {
     });
   }
 };
+
+
+// Registrar un nuevo producto
+export const registrarCliente = async (req, res) => {
+  try {
+    const { 
+      Nombre, 
+      Apellido, 
+      ID_tipoCliente, 
+    } = req.body;
+
+    // Validación básica de campos requeridos
+    if (!Nombre || !Apellido || !ID_tipoCliente ) {
+      return res.status(400).json({
+        mensaje: 'Faltan campos requeridos: nombreCliente, ApellidoCliente o tipoCliente .'
+      });
+    }
+
+    const [result] = await pool.query(
+      'INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES (?, ?, ?)',
+      [
+        Nombre,
+        Apellido,
+        ID_tipoCliente
+      ]
+    );
+
+    res.status(201).json({ 
+      ID_Cliente: result.insertId,
+      mensaje: 'Cliente registrado exitosamente'
+    });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar los clientes.',
+      error: error.message
+    });
+  }
+};
+

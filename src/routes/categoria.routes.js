@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {  obtenerCategoria, obtenerCategoriaid } from '../controllers/categoria.controller.js';
+import {  obtenerCategoria, obtenerCategoriaid, registrarCategoria } from '../controllers/categoria.controller.js';
 
 const router = Router();
 
@@ -8,5 +8,7 @@ router.get('/categorias', obtenerCategoria);
 
 // Ruta para obtener todos los clientes id
 router.get('/categorias/:id', obtenerCategoriaid);
+
+router.post('/registrarcategorias', registrarCategoria);
 
 export default router;

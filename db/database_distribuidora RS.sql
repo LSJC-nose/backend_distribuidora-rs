@@ -47,7 +47,12 @@ CREATE TABLE Cliente (
     ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL,
     Apellido VARCHAR(50) NOT NULL,
-    Tipo_Cliente VARCHAR(50) NOT NULL
+    ID_tipoCliente Int NOT NULL
+);
+
+Create table tipoCliente (
+ID_tipoCliente int auto_increment primary key,
+TipoCliente varchar(40)
 );
 
 CREATE TABLE Compra_factura (

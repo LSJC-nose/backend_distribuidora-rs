@@ -30,3 +30,24 @@ export const obtenerCategoriaid = async (req, res) => {
       });
     }
   };
+
+    // Registrar una nueva categoría
+export const registrarCategoria = async (req, res) => {
+  try {
+    const {  NombreCategoria } = req.body;
+
+    const [result] = await pool.query(
+      'INSERT INTO Categorias ( NombreCategoria) VALUES (?)',
+      [ NombreCategoria]
+    );
+
+    res.status(201).json({ ID_Categoria: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la categoría.',
+      error: error
+    });
+  }
+};
+
+  
