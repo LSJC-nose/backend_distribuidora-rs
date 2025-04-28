@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import {  obtenerCategoria, obtenerCategoriaid, registrarCategoria } from '../controllers/categoria.controller.js';
+import {  obtenerCategoria,
+   obtenerCategoriaid,
+    registrarCategoria,
+    eliminarCategoria,
+    actualizarCategoria
+     } from '../controllers/categoria.controller.js';
 
 const router = Router();
 
@@ -10,5 +15,9 @@ router.get('/categorias', obtenerCategoria);
 router.get('/categorias/:id', obtenerCategoriaid);
 
 router.post('/registrarcategorias', registrarCategoria);
+
+router.delete('/eliminarcategoria/:id', eliminarCategoria);
+
+router.patch('/actualizarcategoria/:id', actualizarCategoria);
 
 export default router;

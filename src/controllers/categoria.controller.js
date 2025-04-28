@@ -50,4 +50,50 @@ export const registrarCategoria = async (req, res) => {
   }
 };
 
+export const eliminarCategoria = async (req, res) => {
+  try {
+    const [result] = await pool.query('DELETE FROM Categorias WHERE ID_Categoria = ?', [req.params.id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        mensaje: `Error al eliminar la categoría. El ID ${req.params.id} no fue encontrado.`
+      });
+    }
+
+    res.status(204).send(); // Respuesta sin contenido para indicar éxito
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al eliminar la categoría.',
+      error: error
+    });
+  }
+};
+
+export const actualizarCategoria = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const datos = req.body;
+
+    const [resultado] = await pool.query(
+      'UPDATE Categorias SET ? WHERE ID_Categoria = ?',
+      [datos, id]
+    );
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({
+        mensaje: `La categoría con ID ${id} no existe.`,
+      });
+    }
+
+    res.status(204).send(); // Respuesta sin contenido para indicar éxito
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Error al actualizar la categoría.',
+      error: error,
+    });
+  }
+};
+
+
+
   
