@@ -32,3 +32,26 @@ INNER JOIN
     });
   }
 };
+
+
+// Registrar una nueva categoría
+export const registrarCategoria = async (req, res) => {
+  try {
+    const { nombre_categoria, descripcion_categoria } = req.body;
+
+    const [result] = await pool.query(
+      'INSERT INTO categorias (nombre_categoria, descripcion_categoria) VALUES (?, ?)',
+      [nombre_categoria, descripcion_categoria]
+    );
+
+    res.status(201).json({ id_categoria: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la categoría.',
+      error: error
+    });
+  }
+};
+
+
+
