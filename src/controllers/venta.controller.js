@@ -5,7 +5,7 @@ export const obtenerVentasConDetalles = async (req, res) => {
   try {
     const [result] = await pool.query(`
      SELECT
-    v.NumeroFactura,
+    v.ID_Venta,
     dv.ID_Detalle,
     v.ID_Tiempo,
      c.Nombre As nombreCliente,
@@ -18,7 +18,7 @@ FROM
 INNER JOIN
     Cliente c ON v.ID_Cliente = c.ID_Cliente -- Corrección: relacionar por ID_Cliente
 INNER JOIN
-    Detalle_venta_factura dv ON v.NumeroFactura = dv.NumeroFactura
+    Detalle_venta_factura dv ON v.ID_Venta = dv.ID_Venta
 INNER JOIN
     Producto p ON dv.ID_Producto = p.ID_Producto;
 

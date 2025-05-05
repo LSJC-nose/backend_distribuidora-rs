@@ -100,7 +100,7 @@ CREATE TABLE Proveedores (
 );
 
 CREATE TABLE Venta_factura (
-    NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Venta INT AUTO_INCREMENT PRIMARY KEY,
     ID_Cliente INT NULL,
     ID_Tiempo INT,
     ID_Producto INT NOT NULL

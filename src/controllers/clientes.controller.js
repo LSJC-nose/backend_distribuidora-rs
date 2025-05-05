@@ -122,7 +122,3 @@ export const actualizarCliente = async (req, res) => {
     });
   }
 };
-
-
-
-  

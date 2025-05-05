@@ -93,3 +93,7 @@ export const actualizarCategoria = async (req, res) => {
     });
   }
 };
+
+
+
+  
