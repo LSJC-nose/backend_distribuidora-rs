@@ -3,21 +3,7 @@ import { pool } from '../db.js';
 // Obtener todos los productos
 export const obtenerProductos = async (req, res) => {
   try {
-    const [result] = await pool.query(`
-      SELECT
-    a.ID_Producto,
-    a.Stock,
-    s.NombreCategoria,
-    a.PrecioCompra,
-    a.PrecioVenta,
-    a.nombreProducto,
-    a.Descripcion
-FROM
-    Categorias s
-INNER JOIN
-    Producto a ON s.ID_Categoria = a.ID_Categoria;
-  
-  `);
+    const [result] = await pool.query('SELECT * FROM Producto');
     res.json(result);
   } catch (error) {
     return res.status(500).json({
@@ -28,10 +14,10 @@ INNER JOIN
 };
 
 // Obtener un producto por su ID
-export const obtenerProducto = async (req, res) => {
+export const obtenerProductoId = async (req, res) => {
   try {
     const [result] = await pool.query('SELECT * FROM Producto WHERE ID_Producto = ?', [req.params.id]);
-    
+
     if (result.length <= 0) {
       return res.status(404).json({
         mensaje: `Error al leer los datos. El ID ${req.params.id} del producto no fue encontrado.`
@@ -48,42 +34,55 @@ export const obtenerProducto = async (req, res) => {
 // Registrar un nuevo producto
 export const registrarProducto = async (req, res) => {
   try {
-    const { Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo } = req.body;
+    const { Stock, 
+      ID_Categoria, 
+      PrecioCompra, 
+      PrecioVenta,
+       nombreProducto, 
+       Descripcion, 
+       UbicacionFotografia,
+        ID_catalogo } = req.body;
 
-    // Validación básica
-    if (!Stock || !ID_Categoria || !PrecioCompra || !PrecioVenta || !nombreProducto || !Descripcion || !UbicacionFotografia || !ID_catalogo) {
-      return res.status(400).json({ mensaje: "Todos los campos son obligatorios." });
+    if (!Stock || !ID_Categoria || !PrecioCompra || !PrecioVenta || !nombreProducto  ) {
+      return res.status(400).json({ mensaje: 'Todos los campos son obligatorios.' });
     }
 
     const [result] = await pool.query(
       'INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo]
+      [Stock, 
+        ID_Categoria,
+         PrecioCompra, 
+         PrecioVenta, 
+         nombreProducto, 
+         Descripcion || null, 
+         UbicacionFotografia || null, 
+         ID_catalogo]
     );
 
-    res.json({ mensaje: "Producto registrado correctamente", ID_Producto: result.insertId });
+    res.status(201).json({ ID_Producto: result.insertId, mensaje: 'Producto registrado exitosamente' });
   } catch (error) {
-    return res.status(500).json({ mensaje: "Ha ocurrido un error al registrar el producto.", error });
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar el producto.',
+      error: error.message
+    });
   }
 };
 
 // Actualizar un producto por su ID
 export const actualizarProducto = async (req, res) => {
   try {
-    const { Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo } = req.body;
     const { id } = req.params;
+    const datos = req.body;
 
-    const [result] = await pool.query(
-      'UPDATE Producto SET Stock = ?, ID_Categoria = ?, PrecioCompra = ?, PrecioVenta = ?, nombreProducto = ?, Descripcion = ?, UbicacionFotografia = ?, ID_catalogo = ? WHERE ID_Producto = ?',
-      [Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo, id]
-    );
+    const [resultado] = await pool.query('UPDATE Producto SET ? WHERE ID_Producto = ?', [datos, id]);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ mensaje: `Error al actualizar. El producto con ID ${id} no fue encontrado.` });
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensaje: `El producto con ID ${id} no existe.` });
     }
 
-    res.json({ mensaje: "Producto actualizado correctamente" });
+    res.status(200).json({ mensaje: 'Producto actualizado exitosamente' });
   } catch (error) {
-    return res.status(500).json({ mensaje: "Ha ocurrido un error al actualizar el producto.", error });
+    return res.status(500).json({ mensaje: 'Error al actualizar el producto.', error: error.message });
   }
 };
 
@@ -92,14 +91,14 @@ export const eliminarProducto = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [result] = await pool.query('DELETE FROM Producto WHERE ID_Producto = ?', [id]);
+    const [resultado] = await pool.query('DELETE FROM Producto WHERE ID_Producto = ?', [id]);
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ mensaje: `Error al eliminar. El producto con ID ${id} no fue encontrado.` });
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensaje: `No se encontró el producto con ID ${id}.` });
     }
 
-    res.json({ mensaje: "Producto eliminado correctamente" });
+    res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ mensaje: "Ha ocurrido un error al eliminar el producto.", error });
+    return res.status(500).json({ mensaje: 'Error al eliminar el producto.', error: error.message });
   }
 };
