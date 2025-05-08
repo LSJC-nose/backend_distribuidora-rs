@@ -99,6 +99,11 @@ CREATE TABLE Proveedores (
     Direccion VARCHAR(150) NOT NULL
 );
 
+CREATE TABLE Venta_factura (
+    NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Cliente INT NULL,
+    Fecha DATE NULL
+);
 
 
 -- Insertando 50 registros en la tabla Usuarios
@@ -318,25 +323,4 @@ INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProd
 (392, 49, 12.00, 18.00, 'Mascarilla', 'Mascarilla de protección', 'imagenes/mascarilla.jpg', 2),
 (402, 50, 25.00, 35.00, 'Gafas de Sol', 'Gafas de sol polarizadas', 'imagenes/gafas.jpg', 1);
 
-INSERT INTO detalle_venta_factura (ID_Detalle, ID_Producto, Cantidad, NumeroFactura, PrecioVenta) VALUES
-(1, 101, 2, 5001, 120.50),
-(2, 205, 1, 5001, 75.99),
-(3, 340, 5, 5002, 45.20),
-(4, 185, 3, 5003, 89.99),
-(5, 410, 2, 5003, 150.75),
-(6, 120, 1, 5004, 60.30),
-(7, 230, 4, 5005, 110.00),
-(8, 322, 2, 5006, 95.80),
-(9, 150, 3, 5007, 75.20),
-(10, 401, 1, 5008, 135.99);
-
-INSERT INTO tipocliente (ID_tipoCliente, TipoCliente) VALUES
-(1, 'Frecuente'),
-(2, 'Generico');
-
-INSERT INTO proveedores (ID_Proveedores, NombreProveedor, Telefono, Correo, Direccion) VALUES
-(2, 'Electro S.A.', '555-5678', 'ventas@electrosa.com', 'Zona Industrial #20, Managua, Nicaragua'),
-(3, 'Insumos y Más', '555-9876', 'info@insumosymas.com', 'Calle Comercio #12, León, Nicaragua'),
-(4, 'Tecnología Express', '555-4321', 'soporte@tecnoexpress.com', 'Centro Financiero #8, Managua, Nicaragua'),
-(5, 'AgroProductores', '555-2468', 'agro@productores.com', 'Carretera Sur Km 15, Masaya, Nicaragua'),
-(6, 'Mega Importaciones', '555-3698', 'compras@megaimport.com', 'Paseo Empresarial #33, Granada, Nicaragua');
+  

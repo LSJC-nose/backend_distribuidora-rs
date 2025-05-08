@@ -56,7 +56,7 @@ export const registrarProducto = async (req, res) => {
          nombreProducto, 
          Descripcion || null, 
          UbicacionFotografia || null, 
-         ID_catalogo]
+         ID_catalogo] 
     );
 
     res.status(201).json({ ID_Producto: result.insertId, mensaje: 'Producto registrado exitosamente' });
