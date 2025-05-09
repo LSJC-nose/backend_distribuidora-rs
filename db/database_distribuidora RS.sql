@@ -1,6 +1,7 @@
 CREATE DATABASE Distribuidora_RS;
 USE Distribuidora_RS;
 
+
 CREATE TABLE bitacoras (
     id_bitacora INT AUTO_INCREMENT PRIMARY KEY,
     transaccion VARCHAR(10) NOT NULL,
@@ -102,9 +103,41 @@ CREATE TABLE Proveedores (
 CREATE TABLE Venta_factura (
     NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
     ID_Cliente INT NULL,
-    Fecha DATE NULL
+    fecha_venta DATETIME NULL
 );
 
+-- Relaciones entre tablas
+ALTER TABLE venta_factura
+ADD CONSTRAINT FK_Venta_factura_Cliente
+FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente);  -- clientet y venta factura 
+
+ALTER TABLE detalle_venta_factura
+ADD CONSTRAINT FKñ_Detalle_Venta_Venta_factura
+FOREIGN KEY (NumeroFactura) REFERENCES Venta_factura(NumeroFactura); 
+
+ALTER TABLE Producto
+ADD CONSTRAINT FK_Categoria_Producto
+FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria); 
+
+ALTER TABLE detalle_venta_factura
+ADD CONSTRAINT FK_Producto_Detallecomprafactura 
+FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto);
+
+ALTER TABLE detallecomprafactura
+ADD CONSTRAINT FK_Categoria_Compra
+FOREIGN KEY (ID_CompraFactura) REFERENCES Compra_factura(ID_CompraFactura);
+
+ALTER TABLE compra_factura
+ADD CONSTRAINT FK_proveedores_compra
+FOREIGN KEY (ID_Proveedores) REFERENCES Proveedores(ID_Proveedores);
+
+ALTER TABLE producto
+ADD CONSTRAINT FK_proveedores_categoria
+FOREIGN KEY (ID_Categoria) REFERENCES categorias(ID_Categoria);
+
+ALTER TABLE producto
+ADD CONSTRAINT FK_proveedores_calificaciones 	
+FOREIGN KEY (ID_Calificacion) REFERENCES calificaciones(ID_Calificacion);
 
 -- Insertando 50 registros en la tabla Usuarios
 INSERT INTO Usuarios (usuario, contraseña) VALUES 
@@ -323,4 +356,103 @@ INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProd
 (392, 49, 12.00, 18.00, 'Mascarilla', 'Mascarilla de protección', 'imagenes/mascarilla.jpg', 2),
 (402, 50, 25.00, 35.00, 'Gafas de Sol', 'Gafas de sol polarizadas', 'imagenes/gafas.jpg', 1);
 
-  
+INSERT INTO tipoCliente ( TipoCliente) Values
+                        ('Generico'),
+						('Frecuente');
+
+INSERT INTO Proveedores (NombreProveedor, Telefono, Correo, Direccion) VALUES
+('Proveedor A', '555-0001', 'contactoA@proveedora.com', 'Calle 1, Ciudad A'),
+('Proveedor B', '555-0002', 'contactoB@proveedora.com', 'Calle 2, Ciudad B'),
+('Proveedor C', '555-0003', 'contactoC@proveedora.com', 'Calle 3, Ciudad C'),
+('Proveedor D', '555-0004', 'contactoD@proveedora.com', 'Calle 4, Ciudad D'),
+('Proveedor E', '555-0005', 'contactoE@proveedora.com', 'Calle 5, Ciudad E'),
+('Proveedor F', '555-0006', 'contactoF@proveedora.com', 'Calle 6, Ciudad F'),
+('Proveedor G', '555-0007', 'contactoG@proveedora.com', 'Calle 7, Ciudad G'),
+('Proveedor H', '555-0008', 'contactoH@proveedora.com', 'Calle 8, Ciudad H'),
+('Proveedor I', '555-0009', 'contactoI@proveedora.com', 'Calle 9, Ciudad I'),
+('Proveedor J', '555-0010', 'contactoJ@proveedora.com', 'Calle 10, Ciudad J'),
+('Proveedor K', '555-0011', 'contactoK@proveedora.com', 'Calle 11, Ciudad K'),
+('Proveedor L', '555-0012', 'contactoL@proveedora.com', 'Calle 12, Ciudad L'),
+('Proveedor M', '555-0013', 'contactoM@proveedora.com', 'Calle 13, Ciudad M'),
+('Proveedor N', '555-0014', 'contactoN@proveedora.com', 'Calle 14, Ciudad N'),
+('Proveedor O', '555-0015', 'contactoO@proveedora.com', 'Calle 15, Ciudad O'),
+('Proveedor P', '555-0016', 'contactoP@proveedora.com', 'Calle 16, Ciudad P'),
+('Proveedor Q', '555-0017', 'contactoQ@proveedora.com', 'Calle 17, Ciudad Q'),
+('Proveedor R', '555-0018', 'contactoR@proveedora.com', 'Calle 18, Ciudad R'),
+('Proveedor S', '555-0019', 'contactoS@proveedora.com', 'Calle 19, Ciudad S'),
+('Proveedor T', '555-0020', 'contactoT@proveedora.com', 'Calle 20, Ciudad T'),
+('Proveedor U', '555-0021', 'contactoU@proveedora.com', 'Calle 21, Ciudad U'),
+('Proveedor V', '555-0022', 'contactoV@proveedora.com', 'Calle 22, Ciudad V'),
+('Proveedor W', '555-0023', 'contactoW@proveedora.com', 'Calle 23, Ciudad W'),
+('Proveedor X', '555-0024', 'contactoX@proveedora.com', 'Calle 24, Ciudad X'),
+('Proveedor Y', '555-0025', 'contactoY@proveedora.com', 'Calle 25, Ciudad Y'),
+('Proveedor Z', '555-0026', 'contactoZ@proveedora.com', 'Calle 26, Ciudad Z'),
+('Proveedor AA', '555-0027', 'contactoAA@proveedora.com', 'Calle 27, Ciudad AA'),
+('Proveedor AB', '555-0028', 'contactoAB@proveedora.com', 'Calle 28, Ciudad AB'),
+('Proveedor AC', '555-0029', 'contactoAC@proveedora.com', 'Calle 29, Ciudad AC'),
+('Proveedor AD', '555-0030', 'contactoAD@proveedora.com', 'Calle 30, Ciudad AD');
+
+INSERT INTO Venta_factura (ID_Cliente, fecha_venta) VALUES
+(1, '2025-05-01'),
+(2, '2025-05-02'),
+(3, '2025-05-03'),
+(4, '2025-05-04'),
+(5, '2025-05-05'),
+(6, '2025-05-06'),
+(7, '2025-05-07'),
+(8, '2025-05-08'),
+(9, '2025-05-09'),
+(10, '2025-05-10'),
+(11, '2025-05-11'),
+(12, '2025-05-12'),
+(13, '2025-05-13'),
+(14, '2025-05-14'),
+(15, '2025-05-15'),
+(16, '2025-05-16'),
+(17, '2025-05-17'),
+(18, '2025-05-18'),
+(19, '2025-05-19'),
+(20, '2025-05-20'),
+(21, '2025-05-21'),
+(22, '2025-05-22'),
+(23, '2025-05-23'),
+(24, '2025-05-24'),
+(25, '2025-05-25'),
+(26, '2025-05-26'),
+(27, '2025-05-27'),
+(28, '2025-05-28'),
+(29, '2025-05-29'),
+(30, '2025-05-30');
+
+
+INSERT INTO Detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, PrecioVenta) VALUES
+(1, 2, 1, 150.00),
+(2, 1, 1, 50.00),
+(3, 3, 2, 300.00),
+(4, 1, 2, 700.00),
+(5, 4, 3, 25.00),
+(6, 5, 3, 10.00),
+(7, 6, 4, 80.00),
+(8, 2, 4, 15.00),
+(9, 1, 5, 200.00),
+(10, 3, 5, 90.00),
+(11, 4, 6, 30.00),
+(12, 5, 6, 12.00),
+(13, 6, 7, 45.00),
+(14, 1, 7, 70.00),
+(15, 2, 8, 25.00),
+(16, 3, 8, 60.00),
+(17, 4, 9, 15.00),
+(18, 5, 9, 35.00),
+(19, 6, 10, 50.00),
+(20, 1, 10, 100.00),
+(21, 2, 11, 75.00),
+(22, 3, 11, 30.00),
+(23, 4, 12, 20.00),
+(24, 5, 12, 18.00),
+(25, 6, 13, 22.00),
+(26, 1, 13, 90.00),
+(27, 2, 14, 40.00),
+(28, 3, 14, 80.00),
+(29, 4, 15, 55.00),
+(30, 5, 15, 65.00);
