@@ -106,13 +106,18 @@ CREATE TABLE Venta_factura (
     fecha_venta DATETIME NULL
 );
 
+-- Modificacion a la tabla venta y detalle
+ALTER TABLE detalle_venta_factura
+ADD CONSTRAINT fk_venta_detalle FOREIGN KEY (NumeroFactura) REFERENCES venta_factura(NumeroFactura) ON DELETE CASCADE;
+
+
 -- Relaciones entre tablas
 ALTER TABLE venta_factura
 ADD CONSTRAINT FK_Venta_factura_Cliente
 FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente);  -- clientet y venta factura 
 
 ALTER TABLE detalle_venta_factura
-ADD CONSTRAINT FKñ_Detalle_Venta_Venta_factura
+ADD CONSTRAINT FK_Detalle_Venta_Venta_factura
 FOREIGN KEY (NumeroFactura) REFERENCES Venta_factura(NumeroFactura); 
 
 ALTER TABLE Producto
@@ -456,3 +461,5 @@ INSERT INTO Detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, PrecioV
 (28, 3, 14, 80.00),
 (29, 4, 15, 55.00),
 (30, 5, 15, 65.00);
+
+ 

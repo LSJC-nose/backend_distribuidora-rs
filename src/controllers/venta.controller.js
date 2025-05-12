@@ -55,9 +55,9 @@ export const obtenerVentas = async (req, res) => {
 // Eliminar una venta (los detalles se eliminan automáticamente por ON DELETE CASCADE)
 export const eliminarVenta = async (req, res) => {
   try {
-    const { numero_factura } = req.params;
+    const { NumeroFactura } = req.params;
 
-    const [result] = await pool.query('DELETE FROM Venta_factura WHERE NumeroFactura = ?', [numero_factura]);
+    const [result] = await pool.query('DELETE FROM venta_factura WHERE NumeroFactura = ?', [NumeroFactura]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ mensaje: 'Venta no encontrada' });
@@ -70,17 +70,45 @@ export const eliminarVenta = async (req, res) => {
       error: error.message
     });
   }
+};  
+
+// Obtener una venta específica por id_venta
+export const obtenerVentaPorId = async (req, res) => {
+  try {
+    const { id_venta } = req.params;
+
+    const [venta] = await pool.query(`
+      SELECT 
+        NumeroFactura,
+        ID_Cliente,
+        fecha_venta,
+        total_venta
+      FROM venta_factura
+      WHERE NumeroFactura = ?
+    `, [id_venta]);
+
+    if (venta.length === 0) {
+      return res.status(404).json({ mensaje: 'Venta no encontrada' });
+    }
+
+    res.json(venta[0]); // Devuelve solo el primer objeto (una sola venta)
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al obtener los datos de la venta.',
+      error: error.message
+    });
+  }
 };
 
 // Registrar una nueva venta con detalles
 export const registrarVenta = async (req, res) => {
-  const { id_cliente, fecha_venta, detalles } = req.body;
+  const { id_cliente, fecha_venta,total_venta, detalles } = req.body;
 
   try {
     const fechaVentaFormateada = new Date(fecha_venta).toISOString().slice(0, 19).replace('T', ' '); // Convierte a 'YYYY-MM-DD HH:mm:ss'
     const [ventaResult] = await pool.query(
-      'INSERT INTO Venta_factura (ID_Cliente, fecha_venta ) VALUES (?, ?)',
-      [id_cliente, fechaVentaFormateada]
+      'INSERT INTO Venta_factura (ID_Cliente, fecha_venta,total_venta ) VALUES (?, ?, ?)',
+      [id_cliente, fechaVentaFormateada, ]
     );
 
     const numero_factura = ventaResult.insertId;

@@ -1,25 +1,27 @@
+
+
 import { pool } from '../db.js';
 
-// Controlador para obtener los detalles de una venta por numero_factura
-export const obtenerDetallesVenta = async (req, res) => {
-  const { numero_factura } = req.params; // Obtiene el número de factura de los parámetros de la URL
+// Obtener todos los clientes
+export const obtenerDetalle= async (req, res) => {
+  const { id_venta } = req.params; 
   try {
     const [result] = await pool.query(
-      `
+    `
       SELECT 
-        dv.ID_Detalle AS id_detalle_venta,
+        dv.ID_Detalle ,
         dv.NumeroFactura AS id_venta,
         dv.ID_Producto,
         dv.Cantidad,
         dv.PrecioVenta ,
         p.nombreProducto,
-        p.Descripcion AS descripcion_producto,
+        p.Descripcion ,
         (dv.Cantidad * dv.PrecioVenta) AS total_venta
       FROM Detalle_venta_factura dv
       INNER JOIN Producto p ON dv.ID_Producto = p.ID_Producto
       WHERE dv.NumeroFactura = ?
     `,
-      [numero_factura]
+      [id_venta]
     );
 
     if (result.length === 0) {
@@ -31,8 +33,8 @@ export const obtenerDetallesVenta = async (req, res) => {
     res.json(result);
   } catch (error) {
     return res.status(500).json({
-      mensaje: 'Ha ocurrido un error al obtener los detalles de la venta.',
-      error: error.message,
+      mensaje: 'Ha ocurrido un error al leer los datos de ldetalle.',
+      error: error
     });
   }
 };
