@@ -2,15 +2,16 @@ Create database RS_DataMart;
 use RS_DataMart;
 
 CREATE TABLE Hecho_Venta (
-     NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
-    ID_Cliente INT NULL,
+     NumeroFactura INT ,
+    ID_Cliente INT ,
     ID_Detalle INT,
     ID_Tiempo INT,
-    ID_Producto INT NOT NULL,
+    ID_Producto INT ,
     Cantidad INT NOT NULL,
 	PrecioVenta DOUBLE NULL,
     fecha_venta datetime,
-    Total int
+    Total int,
+    PRIMARY KEY (NumeroFactura, ID_Detalle)
 );
 
 
