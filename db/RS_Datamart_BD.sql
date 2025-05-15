@@ -2,13 +2,14 @@ Create database RS_DataMart;
 use RS_DataMart;
 
 CREATE TABLE Hecho_Venta (
-    ID_Venta INT AUTO_INCREMENT PRIMARY KEY,
+     NumeroFactura INT AUTO_INCREMENT PRIMARY KEY,
     ID_Cliente INT NULL,
+    ID_Detalle INT,
     ID_Tiempo INT,
     ID_Producto INT NOT NULL,
     Cantidad INT NOT NULL,
-	PrecioProducto DOUBLE NULL,
-    FechaHoraVenta date,
+	PrecioVenta DOUBLE NULL,
+    fecha_venta datetime,
     Total int
 );
 
@@ -34,13 +35,13 @@ CREATE TABLE Dim_Producto (
 
 create table Dim_Tiempo (
 ID_Tiempo INT PRIMARY KEY auto_increment,
-fecha Date(20),
+fecha Date,
 año INT,
 mes INT(20),
 dia INT,
 trimestre INT,
 nombre_mes Varchar(20),
-dia_semana Varchar(20),
+dia_semana Varchar(20)
 );
 
 
