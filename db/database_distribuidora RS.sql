@@ -462,4 +462,27 @@ INSERT INTO Detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, PrecioV
 (29, 4, 15, 55.00),
 (30, 5, 15, 65.00);
 
- 
+ INSERT INTO Compra_factura (N_Factura, ID_Proveedores, Fecha) VALUES
+(1001, 1, '2025-05-01 10:00:00'),
+(1002, 2, '2025-05-02 11:00:00'),
+(1003, 3, '2025-05-03 12:00:00'),
+(1004, 4, '2025-05-04 13:00:00'),
+(1005, 5, '2025-05-05 14:00:00'),
+(1006, 6, '2025-05-06 15:00:00'),
+(1007, 7, '2025-05-07 16:00:00'),
+(1008, 8, '2025-05-08 17:00:00'),
+(1009, 9, '2025-05-09 18:00:00'),
+(1010, 10, '2025-05-10 19:00:00');
+
+
+INSERT INTO DetalleCompraFactura (Cantidad, Precio, ID_CompraFactura, ID_Producto) VALUES
+(5, 100.00, 1, 1),  -- 5 unidades del producto 1 a 100.00 cada uno
+(10, 50.00, 1, 2),  -- 10 unidades del producto 2 a 50.00 cada uno
+(3, 200.00, 2, 3),  -- 3 unidades del producto 3 a 200.00 cada uno
+(7, 15.00, 2, 4),   -- 7 unidades del producto 4 a 15.00 cada uno
+(2, 300.00, 3, 5),  -- 2 unidades del producto 5 a 300.00 cada uno
+(4, 80.00, 3, 6),   -- 4 unidades del producto 6 a 80.00 cada uno
+(1, 400.00, 4, 7),  -- 1 unidad del producto 7 a 400.00
+(6, 20.00, 4, 8),   -- 6 unidades del producto 8 a 20.00 cada uno
+(8, 120.00, 5, 9),  -- 8 unidades del producto 9 a 120.00 cada uno
+(5, 35.00, 5, 10);  -- 5 unidades del producto 10 a 35.00 cada uno

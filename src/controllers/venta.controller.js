@@ -102,13 +102,13 @@ export const obtenerVentaPorId = async (req, res) => {
 
 // Registrar una nueva venta con detalles
 export const registrarVenta = async (req, res) => {
-  const { id_cliente, fecha_venta,total_venta, detalles } = req.body;
+  const { id_cliente, fecha_venta, total_venta, detalles } = req.body;
 
   try {
     const fechaVentaFormateada = new Date(fecha_venta).toISOString().slice(0, 19).replace('T', ' '); // Convierte a 'YYYY-MM-DD HH:mm:ss'
     const [ventaResult] = await pool.query(
-      'INSERT INTO Venta_factura (ID_Cliente, fecha_venta,total_venta ) VALUES (?, ?, ?)',
-      [id_cliente, fechaVentaFormateada, ]
+      'INSERT INTO Venta_factura (ID_Cliente, fecha_venta, total_venta ) VALUES (?, ?, ?)',
+      [id_cliente, fechaVentaFormateada, total_venta ]
     );
 
     const numero_factura = ventaResult.insertId;

@@ -34,10 +34,13 @@ CREATE TABLE Dim_Producto (
 
 create table Dim_Tiempo (
 ID_Tiempo INT PRIMARY KEY auto_increment,
-Fecha Varchar(20),
-Mes VARCHAR(20),
-Año Varchar(20),
-INDEX idx_fecha (Fecha)
+fecha Date(20),
+año INT,
+mes INT(20),
+dia INT,
+trimestre INT,
+nombre_mes Varchar(20),
+dia_semana Varchar(20),
 );
 
 
