@@ -88,7 +88,7 @@ CREATE TABLE Producto (
     PrecioVenta DOUBLE NULL,
     nombreProducto VARCHAR(30) NULL,
     Descripcion VARCHAR(60) NULL,
-    UbicacionFotografia VARCHAR(160) NULL,
+    UbicacionFotografia LONGTEXT,
     ID_catalogo INT
 );
 
@@ -309,9 +309,9 @@ INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES
 
 -- Insertando 50 registros en la tabla Producto
 INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo) VALUES
-(50, 1, 100.00, 150.00, 'Televisor 50"', 'Televisor 4K UHD', 'imagenes/tv50.jpg', 1),
+(50, 2, 100.00, 150.00, 'Televisor 50"', 'Televisor 4K UHD', 'imagenes/tv50.jpg', 1),
 (20, 2, 30.00, 50.00, 'Lámpara LED', 'Lámpara de escritorio LED', 'imagenes/lampara.jpg', 2),
-(15, 1, 200.00, 300.00, 'Smartphone', 'Smartphone de última generación', 'imagenes/smartphone.jpg', 1),
+(15, 2, 200.00, 300.00, 'Smartphone', 'Smartphone de última generación', 'imagenes/smartphone.jpg', 1),
 (10, 3, 500.00, 700.00, 'Bicicleta', 'Bicicleta de montaña', 'imagenes/bicicleta.jpg', 2),
 (25, 4, 15.00, 25.00, 'Camiseta', 'Camiseta de algodón', 'imagenes/camiseta.jpg', 1),
 (30, 5, 5.00, 10.00, 'Snack', 'Snack saludable', 'imagenes/snack.jpg', 2),
@@ -486,3 +486,6 @@ INSERT INTO DetalleCompraFactura (Cantidad, Precio, ID_CompraFactura, ID_Product
 (6, 20.00, 4, 8),   -- 6 unidades del producto 8 a 20.00 cada uno
 (8, 120.00, 5, 9),  -- 8 unidades del producto 9 a 120.00 cada uno
 (5, 35.00, 5, 10);  -- 5 unidades del producto 10 a 35.00 cada uno
+
+
+
