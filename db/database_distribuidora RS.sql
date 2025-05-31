@@ -58,7 +58,6 @@ CREATE TABLE tipoCliente (
 
 CREATE TABLE Compra_factura (
     ID_CompraFactura INT AUTO_INCREMENT PRIMARY KEY,
-    N_Factura INT NULL,
     ID_Proveedores INT NULL,
     Fecha DATETIME NULL,
     Imagen LONGBLOB NULL
@@ -75,7 +74,7 @@ CREATE TABLE Detalle_venta_factura (
 CREATE TABLE DetalleCompraFactura (
     ID_Compra INT AUTO_INCREMENT PRIMARY KEY,
     Cantidad INT NOT NULL,
-    Precio DECIMAL(10,2) NOT NULL,
+    PrecioCompra DECIMAL(10,2) NOT NULL,
     ID_CompraFactura INT NULL,
     ID_Producto INT NULL
 );
@@ -88,7 +87,7 @@ CREATE TABLE Producto (
     PrecioVenta DOUBLE NULL,
     nombreProducto VARCHAR(30) NULL,
     Descripcion VARCHAR(60) NULL,
-    UbicacionFotografia LONGTEXT,
+    UbicacionFotografia VARCHAR(160) NULL,
     ID_catalogo INT
 );
 
@@ -254,64 +253,64 @@ INSERT INTO Categorias (NombreCategoria) VALUES
 INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES
 ('Juan', 'Perez', 1),
 ('Ana', 'Gomez', 2),
-('Carlos', 'Lopez', 3),
+('Carlos', 'Lopez', 2),
 ('María', 'Fernandez', 1),
 ('Luis', 'Martinez', 2),
-('Sofia', 'Hernandez', 3),
+('Sofia', 'Hernandez', 1),
 ('Miguel', 'Gonzalez', 1),
 ('Laura', 'Rodriguez', 2),
-('Javier', 'Sanchez', 3),
+('Javier', 'Sanchez', 2),
 ('Patricia', 'Torres', 1),
 ('Diego', 'Ramirez', 2),
-('Sandra', 'Diaz', 3),
+('Sandra', 'Diaz', 2),
 ('Fernando', 'Morales', 1),
 ('Cristina', 'Paredes', 2),
-('Andrés', 'Cruz', 3),
+('Andrés', 'Cruz', 1),
 ('Natalia', 'Mendoza', 1),
 ('Hugo', 'Rivas', 2),
-('Veronica', 'Salazar', 3),
+('Veronica', 'Salazar', 1),
 ('Raúl', 'Cordero', 1),
 ('Carmen', 'Valdez', 2),
-('Roberto', 'Ortega', 3),
+('Roberto', 'Ortega', 2,
 ('Esteban', 'Cano', 1),
 ('Silvia', 'Medina', 2),
-('Alberto', 'Ceballos', 3),
+('Alberto', 'Ceballos', 2),
 ('Claudia', 'Alvarez', 1),
 ('Julio', 'Ponce', 2),
 ('Elena', 'Sierra', 3),
 ('Victor', 'Castañeda', 1),
 ('Maribel', 'Rojas', 2),
-('Antonio', 'Zamora', 3),
+('Antonio', 'Zamora', 2),
 ('Nadia', 'Guzman', 1),
 ('Matias', 'Sotelo', 2),
-('Rosa', 'López', 3),
+('Rosa', 'López', 2),
 ('Jorge', 'Salas', 1),
 ('Gina', 'Pizarro', 2),
-('Rafael', 'Vargas', 3),
+('Rafael', 'Vargas', 2),
 ('Irene', 'Cortez', 1),
 ('Pablo', 'Núñez', 2),
-('Luz', 'Hidalgo', 3),
+('Luz', 'Hidalgo', 1),
 ('Francisco', 'Mora', 1),
 ('Marta', 'Peña', 2),
-('Héctor', 'Bermúdez', 3),
+('Héctor', 'Bermúdez', 1),
 ('Lilian', 'Soto', 1),
 ('Arturo', 'García', 2),
-('Susana', 'Figueroa', 3),
+('Susana', 'Figueroa', 2),
 ('Felipe', 'Cárdenas', 1),
 ('Adriana', 'Ríos', 2),
-('Tomas', 'Cisneros', 3),
+('Tomas', 'Cisneros', 1),
 ('Ruth', 'Aguirre', 1),
 ('Ricardo', 'Vásquez', 2),
-('Santiago', 'Peñalosa', 3),
+('Santiago', 'Peñalosa', 2),
 ('Miriam', 'Peñaloza', 1),
-('Estela', 'Arce', 2),
-('Salvador', 'Maldonado', 3);
+('Estela', 'Arce', 2);
+
 
 -- Insertando 50 registros en la tabla Producto
 INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo) VALUES
-(50, 2, 100.00, 150.00, 'Televisor 50"', 'Televisor 4K UHD', 'imagenes/tv50.jpg', 1),
+(50, 1, 100.00, 150.00, 'Televisor 50"', 'Televisor 4K UHD', 'imagenes/tv50.jpg', 1),
 (20, 2, 30.00, 50.00, 'Lámpara LED', 'Lámpara de escritorio LED', 'imagenes/lampara.jpg', 2),
-(15, 2, 200.00, 300.00, 'Smartphone', 'Smartphone de última generación', 'imagenes/smartphone.jpg', 1),
+(15, 1, 200.00, 300.00, 'Smartphone', 'Smartphone de última generación', 'imagenes/smartphone.jpg', 1),
 (10, 3, 500.00, 700.00, 'Bicicleta', 'Bicicleta de montaña', 'imagenes/bicicleta.jpg', 2),
 (25, 4, 15.00, 25.00, 'Camiseta', 'Camiseta de algodón', 'imagenes/camiseta.jpg', 1),
 (30, 5, 5.00, 10.00, 'Snack', 'Snack saludable', 'imagenes/snack.jpg', 2),
@@ -486,6 +485,3 @@ INSERT INTO DetalleCompraFactura (Cantidad, Precio, ID_CompraFactura, ID_Product
 (6, 20.00, 4, 8),   -- 6 unidades del producto 8 a 20.00 cada uno
 (8, 120.00, 5, 9),  -- 8 unidades del producto 9 a 120.00 cada uno
 (5, 35.00, 5, 10);  -- 5 unidades del producto 10 a 35.00 cada uno
-
-
-
