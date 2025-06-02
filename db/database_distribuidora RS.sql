@@ -80,14 +80,12 @@ CREATE TABLE tiempo (
     INDEX idx_fecha (fecha)
 );
 
--- Table: compra_factura
-CREATE TABLE compra_factura (
-    id_compra_factura INT AUTO_INCREMENT PRIMARY KEY,
-    n_factura INT,
-    id_proveedores INT,
-    fecha DATETIME,
-    imagen LONGBLOB,
-    FOREIGN KEY (id_proveedores) REFERENCES proveedores(id_proveedores) ON DELETE RESTRICT
+CREATE TABLE Compra_factura (
+    ID_CompraFactura INT AUTO_INCREMENT PRIMARY KEY,
+    N_Factura INT NULL,
+    ID_Proveedores INT NULL,
+    Fecha DATETIME NULL,
+    Imagen LONGBLOB NULL
 );
 
 -- Table: venta_factura
@@ -98,15 +96,12 @@ CREATE TABLE venta_factura (
     FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON DELETE RESTRICT
 );
 
--- Table: detalle_venta_factura
-CREATE TABLE detalle_venta_factura (
-    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
-    id_producto INT,
-    cantidad INT NOT NULL,
-    numero_factura INT,
-    precio_venta DOUBLE,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE RESTRICT,
-    FOREIGN KEY (numero_factura) REFERENCES venta_factura(numero_factura) ON DELETE CASCADE
+CREATE TABLE DetalleCompraFactura (
+    ID_Compra INT AUTO_INCREMENT PRIMARY KEY,
+    Cantidad INT NOT NULL,
+    Precio DECIMAL(10,2) NOT NULL,
+    ID_CompraFactura INT NULL,
+    ID_Producto INT NULL
 );
 
 -- Table: detalle_compra_factura
@@ -199,25 +194,115 @@ INSERT INTO usuarios (usuario, contraseña) VALUES
 ('usuario46', 'contraseña46'), ('usuario47', 'contraseña47'), ('usuario48', 'contraseña48'), 
 ('usuario49', 'contraseña49'), ('usuario50', 'contraseña50');
 
--- Insert Data into cliente
-INSERT INTO cliente (nombre, apellido, id_tipo_cliente) VALUES
-('Juan', 'Perez', 1), ('Ana', 'Gomez', 2), ('Carlos', 'Lopez', 1), 
-('María', 'Fernandez', 1), ('Luis', 'Martinez', 2), ('Sofia', 'Hernandez', 1), 
-('Miguel', 'Gonzalez', 1), ('Laura', 'Rodriguez', 2), ('Javier', 'Sanchez', 1), 
-('Patricia', 'Torres', 1), ('Diego', 'Ramirez', 2), ('Sandra', 'Diaz', 1), 
-('Fernando', 'Morales', 1), ('Cristina', 'Paredes', 2), ('Andrés', 'Cruz', 1), 
-('Natalia', 'Mendoza', 1), ('Hugo', 'Rivas', 2), ('Veronica', 'Salazar', 1), 
-('Raúl', 'Cordero', 1), ('Carmen', 'Valdez', 2), ('Roberto', 'Ortega', 1), 
-('Esteban', 'Cano', 1), ('Silvia', 'Medina', 2), ('Alberto', 'Ceballos', 1), 
-('Claudia', 'Alvarez', 1), ('Julio', 'Ponce', 2), ('Elena', 'Sierra', 1), 
-('Victor', 'Castañeda', 1), ('Maribel', 'Rojas', 2), ('Antonio', 'Zamora', 1), 
-('Nadia', 'Guzman', 1), ('Matias', 'Sotelo', 2), ('Rosa', 'López', 1), 
-('Jorge', 'Salas', 1), ('Gina', 'Pizarro', 2), ('Rafael', 'Vargas', 1), 
-('Irene', 'Cortez', 1), ('Pablo', 'Núñez', 2), ('Luz', 'Hidalgo', 1), 
-('Francisco', 'Mora', 1), ('Marta', 'Peña', 2), ('Héctor', 'Bermúdez', 1), 
-('Lilian', 'Soto', 1), ('Arturo', 'García', 2), ('Susana', 'Figueroa', 1), 
-('Felipe', 'Cárdenas', 1), ('Adriana', 'Ríos', 2), ('Tomas', 'Cisneros', 1), 
-('Ruth', 'Aguirre', 1), ('Ricardo', 'Vásquez', 2), ('Santiago', 'Peñalosa', 1);
+-- Insertando 50 registros en la tabla Categorias
+INSERT INTO Categorias (NombreCategoria) VALUES 
+('Electrónica'),
+('Hogar'),
+('Deportes'),
+('Ropa'),
+('Alimentos'),
+('Juguetes'),
+('Libros'),
+('Muebles'),
+('Belleza'),
+('Salud'),
+('Tecnología'),
+('Automotriz'),
+('Jardinería'),
+('Oficina'),
+('Mascotas'),
+('Viajes'),
+('Juegos'),
+('Herramientas'),
+('Artículos de Cocina'),
+('Accesorios'),
+('Material Escolar'),
+('Deportes Acuáticos'),
+('Fitness'),
+('Ciclismo'),
+('Correr'),
+('Senderismo'),
+('Camping'),
+('Pesca'),
+('Caza'),
+('Surf'),
+('Esquí'),
+('Patinaje'),
+('Gimnasia'),
+('Yoga'),
+('Pilates'),
+('Boxeo'),
+('Artes Marciales'),
+('Bailes'),
+('Fotografía'),
+('Cine'),
+('Música'),
+('Teatro'),
+('Arte'),
+('Manualidades'),
+('Costura'),
+('Tejido'),
+('Cerámica'),
+('Escultura'),
+('Pintura'),
+('Dibujo');
+
+-- Insertando 50 registros en la tabla Cliente
+INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES
+('Juan', 'Perez', 1),
+('Ana', 'Gomez', 2),
+('Carlos', 'Lopez', 3),
+('María', 'Fernandez', 1),
+('Luis', 'Martinez', 2),
+('Sofia', 'Hernandez', 3),
+('Miguel', 'Gonzalez', 1),
+('Laura', 'Rodriguez', 2),
+('Javier', 'Sanchez', 3),
+('Patricia', 'Torres', 1),
+('Diego', 'Ramirez', 2),
+('Sandra', 'Diaz', 3),
+('Fernando', 'Morales', 1),
+('Cristina', 'Paredes', 2),
+('Andrés', 'Cruz', 3),
+('Natalia', 'Mendoza', 1),
+('Hugo', 'Rivas', 2),
+('Veronica', 'Salazar', 3),
+('Raúl', 'Cordero', 1),
+('Carmen', 'Valdez', 2),
+('Roberto', 'Ortega', 3),
+('Esteban', 'Cano', 1),
+('Silvia', 'Medina', 2),
+('Alberto', 'Ceballos', 3),
+('Claudia', 'Alvarez', 1),
+('Julio', 'Ponce', 2),
+('Elena', 'Sierra', 3),
+('Victor', 'Castañeda', 1),
+('Maribel', 'Rojas', 2),
+('Antonio', 'Zamora', 3),
+('Nadia', 'Guzman', 1),
+('Matias', 'Sotelo', 2),
+('Rosa', 'López', 3),
+('Jorge', 'Salas', 1),
+('Gina', 'Pizarro', 2),
+('Rafael', 'Vargas', 3),
+('Irene', 'Cortez', 1),
+('Pablo', 'Núñez', 2),
+('Luz', 'Hidalgo', 3),
+('Francisco', 'Mora', 1),
+('Marta', 'Peña', 2),
+('Héctor', 'Bermúdez', 3),
+('Lilian', 'Soto', 1),
+('Arturo', 'García', 2),
+('Susana', 'Figueroa', 3),
+('Felipe', 'Cárdenas', 1),
+('Adriana', 'Ríos', 2),
+('Tomas', 'Cisneros', 3),
+('Ruth', 'Aguirre', 1),
+('Ricardo', 'Vásquez', 2),
+('Santiago', 'Peñalosa', 3),
+('Miriam', 'Peñaloza', 1),
+('Estela', 'Arce', 2),
+('Salvador', 'Maldonado', 3);
 
 -- Insert Data into producto
 INSERT INTO producto (stock, id_categoria, precio_compra, precio_venta, nombre_producto, descripcion, ubicacion_fotografia, id_catalogo) VALUES

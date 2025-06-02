@@ -41,14 +41,15 @@ export const registrarProducto = async (req, res) => {
        nombreProducto, 
        Descripcion, 
        UbicacionFotografia,
-        ID_catalogo } = req.body;
+        ID_catalogo 
+      } = req.body;
 
     if (!Stock || !ID_Categoria || !PrecioCompra || !PrecioVenta || !nombreProducto  ) {
       return res.status(400).json({ mensaje: 'Todos los campos son obligatorios.' });
     }
 
     const [result] = await pool.query(
-      'INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO Producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, UbicacionFotografia, ID_catalogo) VALUES (?, ?, ?, ?, ?, ?, ?,?)',
       [Stock, 
         ID_Categoria,
          PrecioCompra, 
