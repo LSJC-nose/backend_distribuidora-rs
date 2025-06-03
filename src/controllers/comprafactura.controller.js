@@ -74,18 +74,32 @@ export const eliminarCompras = async (req, res) => {
 };
 
 
-// Registrar una nueva compra con detalles
 export const registrarCompras = async (req, res) => {
   const { ID_Proveedores, fecha_compra, total_compra, detalles } = req.body;
 
   try {
+    // Calcular nombre_mes y dia_semana
+    //const fecha = new Date(fecha_compra);
+    //const meses = [
+     // 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+     // 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    //];
+    //const diasSemana = [
+    //  'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'
+    //];
+    
+    //const nombreMes = meses[fecha.getMonth()];
+    //const diaSemana = diasSemana[fecha.getDay()];
+
+    // Insertar en Compra_factura incluyendo nombre_mes y dia_semana
     const [compraResult] = await pool.query(
-      'INSERT INTO Compra_factura (ID_Proveedores, fecha_compra, total_compra) VALUES (?, ?, ?)',
-      [ID_Proveedores, fecha_compra, total_compra]
+      'INSERT INTO Compra_factura (ID_Proveedores, fecha_compra, total_compra, nombre_mes, dia_semana) VALUES (?, ?, ?, ?, ?)',
+      [ID_Proveedores, fecha_compra, total_compra, nombreMes, diaSemana]
     );
 
     const ID_CompraFactura = compraResult.insertId;
 
+    // Insertar detalles y actualizar stock
     for (const detalle of detalles) {
       await pool.query(
         'INSERT INTO DetalleCompraFactura (ID_CompraFactura, ID_Producto, Cantidad, PrecioCompra) VALUES (?, ?, ?, ?)',

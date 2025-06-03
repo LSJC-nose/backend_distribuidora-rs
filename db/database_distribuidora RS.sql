@@ -104,16 +104,6 @@ CREATE TABLE DetalleCompraFactura (
     ID_Producto INT NULL
 );
 
--- Table: detalle_compra_factura
-CREATE TABLE detalle_compra_factura (
-    id_compra INT AUTO_INCREMENT PRIMARY KEY,
-    cantidad INT NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    id_compra_factura INT,
-    id_producto INT,
-    FOREIGN KEY (id_compra_factura) REFERENCES compra_factura(id_compra_factura) ON DELETE CASCADE,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE RESTRICT
-);
 
 -- Table: bitacoras
 CREATE TABLE bitacoras (
