@@ -5,7 +5,7 @@ CREATE TABLE Hecho_Venta (
      NumeroFactura INT ,
     ID_Cliente INT ,
     ID_Detalle INT,
-    ID_Tiempo INT,
+    fecha_venta datetime,
     ID_Producto INT ,
     Cantidad INT NOT NULL,
 	PrecioVenta DOUBLE NULL,
@@ -35,12 +35,11 @@ CREATE TABLE Dim_Producto (
 
 
 create table Dim_Tiempo (
-ID_Tiempo INT PRIMARY KEY auto_increment,
-fecha Date,
+fecha_venta datetime PRIMARY KEY auto_increment,
 año INT,
-mes INT(20),
+mes INT,
 dia INT,
-trimestre INT,
+Trimestre INT,
 nombre_mes Varchar(20),
 dia_semana Varchar(20)
 );

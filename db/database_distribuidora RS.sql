@@ -96,6 +96,20 @@ CREATE TABLE venta_factura (
     FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON DELETE RESTRICT
 );
 
+CREATE TABLE detalle_venta_factura (
+  ID_Detalle int NOT NULL AUTO_INCREMENT,
+  ID_Producto int DEFAULT NULL,
+  Cantidad int NOT NULL,
+  NumeroFactura int DEFAULT NULL,
+  PrecioVenta double DEFAULT NULL,
+  PRIMARY KEY (`ID_Detalle`),
+  KEY `FK_Detalle_Venta_Venta_factura` (`NumeroFactura`),
+  CONSTRAINT `FK_Detalle_Venta_Venta_factura` FOREIGN KEY (`NumeroFactura`) REFERENCES `venta_factura` (`NumeroFactura`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_venta_detalle` FOREIGN KEY (`NumeroFactura`) REFERENCES `venta_factura` (`NumeroFactura`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 CREATE TABLE DetalleCompraFactura (
     ID_Compra INT AUTO_INCREMENT PRIMARY KEY,
     Cantidad INT NOT NULL,
@@ -104,16 +118,6 @@ CREATE TABLE DetalleCompraFactura (
     ID_Producto INT NULL
 );
 
--- Table: detalle_compra_factura
-CREATE TABLE detalle_compra_factura (
-    id_compra INT AUTO_INCREMENT PRIMARY KEY,
-    cantidad INT NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    id_compra_factura INT,
-    id_producto INT,
-    FOREIGN KEY (id_compra_factura) REFERENCES compra_factura(id_compra_factura) ON DELETE CASCADE,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE RESTRICT
-);
 
 -- Table: bitacoras
 CREATE TABLE bitacoras (
