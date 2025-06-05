@@ -102,13 +102,13 @@ export const obtenerVentaPorId = async (req, res) => {
 
 // Registrar una nueva venta con detalles
 export const registrarVenta = async (req, res) => {
-  const { id_cliente, fecha_venta, total_venta, detalles } = req.body;
+  const { ID_Cliente, fecha_venta, total_venta, detalles } = req.body;
 
   try {
     const fechaVentaFormateada = new Date(fecha_venta).toISOString().slice(0, 19).replace('T', ' '); // Convierte a 'YYYY-MM-DD HH:mm:ss'
     const [ventaResult] = await pool.query(
       'INSERT INTO Venta_factura (ID_Cliente, fecha_venta, total_venta ) VALUES (?, ?, ?)',
-      [id_cliente, fechaVentaFormateada, total_venta ]
+      [ID_Cliente, fechaVentaFormateada, total_venta ]
     );
 
     const numero_factura = ventaResult.insertId;
@@ -132,8 +132,8 @@ export const registrarVenta = async (req, res) => {
 
 // Actualizar una venta con sus detalles
 export const actualizarVenta = async (req, res) => {
-  const { numero_factura } = req.params;
-  const { id_cliente, fecha_venta, detalles } = req.body;
+  const { NumeroFactura } = req.params;
+  const { ID_Cliente, fecha_venta, detalles } = req.body;
 
   try {
     // Formatear la fecha al formato MySQL
@@ -142,7 +142,7 @@ export const actualizarVenta = async (req, res) => {
     // Actualizar la venta
     const [ventaResult] = await pool.query(
       'UPDATE Venta_factura SET ID_Cliente = ?, fecha_venta = ? WHERE NumeroFactura = ?',
-      [id_cliente, fechaVentaFormateada, numero_factura]
+      [ID_Cliente, fechaVentaFormateada, numero_factura]
     );
 
     if (ventaResult.affectedRows === 0) {
@@ -152,7 +152,7 @@ export const actualizarVenta = async (req, res) => {
     // Obtener detalles actuales para restaurar stock
     const [detallesActuales] = await pool.query(
       'SELECT ID_Producto, Cantidad FROM Detalle_venta_factura WHERE NumeroFactura = ?',
-      [numero_factura]
+      [NumeroFactura]
     );
 
     // Restaurar stock de productos anteriores
@@ -164,17 +164,17 @@ export const actualizarVenta = async (req, res) => {
     }
 
     // Eliminar detalles actuales
-    await pool.query('DELETE FROM Detalle_venta_factura WHERE NumeroFactura = ?', [numero_factura]);
+    await pool.query('DELETE FROM Detalle_venta_factura WHERE NumeroFactura = ?', [NumeroFactura]);
 
     // Insertar nuevos detalles y actualizar stock
     for (const detalle of detalles) {
       await pool.query(
-        'INSERT INTO Detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, PrecioVenta) VALUES (?, ?, ?, ?)',
-        [detalle.id_producto, detalle.cantidad, numero_factura, detalle.precio_venta]
+        'INSERT INTO detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, PrecioVenta) VALUES (?, ?, ?, ?)',
+        [detalle.ID_Producto, detalle.Cantidad, NumeroFactura, detalle.PrecioVenta]
       );
       await pool.query(
         'UPDATE Producto SET Stock = Stock - ? WHERE ID_Producto = ?',
-        [detalle.cantidad, detalle.id_producto]
+        [detalle.Cantidad, detalle.ID_Producto]
       );
     }
 

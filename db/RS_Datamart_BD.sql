@@ -9,7 +9,6 @@ CREATE TABLE Hecho_Venta (
     ID_Producto INT ,
     Cantidad INT NOT NULL,
 	PrecioVenta DOUBLE NULL,
-    fecha_venta datetime,
     Total int,
     PRIMARY KEY (NumeroFactura, ID_Detalle)
 );

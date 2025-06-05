@@ -4,23 +4,23 @@ USE distribuidora_rs;
 
 -- Table: tipoCliente
 CREATE TABLE tipo_cliente (
-    id_tipo_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_cliente VARCHAR(40) NOT NULL
+    ID_TipoCliente INT AUTO_INCREMENT PRIMARY KEY,
+   tipoCliente VARCHAR(40) NOT NULL
 );
 
 -- Table: categorias
 CREATE TABLE categorias (
-    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_categoria VARCHAR(40) NOT NULL
+    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
+    NombreCategoria VARCHAR(40) NOT NULL
 );
 
 -- Table: proveedores
 CREATE TABLE proveedores (
-    id_proveedores INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_proveedor VARCHAR(50) NOT NULL,
-    telefono VARCHAR(50) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
-    direccion VARCHAR(150) NOT NULL
+    ID_Proveedores INT AUTO_INCREMENT PRIMARY KEY,
+    NombreProveedor VARCHAR(50) NOT NULL,
+    Telefono VARCHAR(50) NOT NULL,
+    Correo VARCHAR(100) NOT NULL,
+    Direccion VARCHAR(150) NOT NULL
 );
 
 -- Table: usuarios
@@ -31,53 +31,53 @@ CREATE TABLE usuarios (
 
 -- Table: cliente
 CREATE TABLE cliente (
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
-    id_tipo_cliente INT NOT NULL,
-    FOREIGN KEY (id_tipo_cliente) REFERENCES tipo_cliente(id_tipo_cliente) ON DELETE RESTRICT
+    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Apellido VARCHAR(50) NOT NULL,
+    ID_TipoCliente INT NOT NULL,
+    FOREIGN KEY (ID_TipoCliente) REFERENCES tipo_cliente(ID_TipoCliente) ON DELETE RESTRICT
 );
 
 -- Table: producto
 CREATE TABLE producto (
-    id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    stock INT,
-    id_categoria INT,
-    precio_compra DOUBLE,
-    precio_venta DOUBLE,
-    nombre_producto VARCHAR(30),
-    descripcion VARCHAR(60),
-    ubicacion_fotografia VARCHAR(160),
-    id_catalogo INT,
-    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE RESTRICT
+    ID_Producto INT AUTO_INCREMENT PRIMARY KEY,
+    Stock INT,
+    ID_Categoria INT,
+    PrecioCompra DOUBLE,
+    PrecioVenta DOUBLE,
+    NombreProducto VARCHAR(30),
+    Descripcion VARCHAR(60),
+    UbicacionFotografia VARCHAR(160),
+    ID_Catalogo INT,
+    FOREIGN KEY (ID_Categoria) REFERENCES categorias(ID_Categoria) ON DELETE RESTRICT
 );
 
 -- Table: catalogo
 CREATE TABLE catalogo (
-    categoria INT AUTO_INCREMENT PRIMARY KEY,
-    id_producto INT,
-    descripcion VARCHAR(100),
-    precio_producto DOUBLE,
-    imagen VARCHAR(50),
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE CASCADE
+    ID_Catalogo INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Producto INT,
+    Descripcion VARCHAR(100),
+    Precio_Producto DOUBLE,
+    Imagen VARCHAR(50),
+    FOREIGN KEY (ID_Producto) REFERENCES producto(ID_Producto) ON DELETE CASCADE
 );
 
 -- Table: calificaciones
 CREATE TABLE calificaciones (
-    id_calificacion INT AUTO_INCREMENT PRIMARY KEY,
-    calificacion TINYINT,
-    comentario TEXT,
-    id_producto INT,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE CASCADE
+    ID_Calificacion INT AUTO_INCREMENT PRIMARY KEY,
+    Calificacion TINYINT,
+    Comentario TEXT,
+    ID_Producto INT,
+    FOREIGN KEY (ID_Producto) REFERENCES producto(ID_Producto) ON DELETE CASCADE
 );
 
 -- Table: tiempo
 CREATE TABLE tiempo (
-    id_tiempo INT AUTO_INCREMENT PRIMARY KEY,
-    fecha DATE,
-    mes VARCHAR(20),
-    año INT,
-    INDEX idx_fecha (fecha)
+    ID_Tiempo INT AUTO_INCREMENT PRIMARY KEY,
+    Fecha DATE,
+    Mes VARCHAR(20),
+    Año INT,
+    INDEX idx_fecha (Fecha)
 );
 
 CREATE TABLE Compra_factura (
@@ -90,10 +90,11 @@ CREATE TABLE Compra_factura (
 
 -- Table: venta_factura
 CREATE TABLE venta_factura (
-    numero_factura INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT,
+    numeraFactura INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Cliente INT,
     fecha_venta DATETIME,
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON DELETE RESTRICT
+    total_venta
+    FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente) ON DELETE RESTRICT
 );
 
 CREATE TABLE detalle_venta_factura (
@@ -121,7 +122,7 @@ CREATE TABLE DetalleCompraFactura (
 
 -- Table: bitacoras
 CREATE TABLE bitacoras (
-    id_bitacora INT AUTO_INCREMENT PRIMARY KEY,
+    ID_bitacora INT AUTO_INCREMENT PRIMARY KEY,
     transaccion VARCHAR(10) NOT NULL,
     usuario VARCHAR(40) NOT NULL,
     host VARCHAR(40) DEFAULT NULL,
@@ -130,12 +131,12 @@ CREATE TABLE bitacoras (
 );
 
 -- Insert Data into tipo_cliente
-INSERT INTO tipo_cliente (tipo_cliente) VALUES
+INSERT INTO tipocliente (TipoCliente) VALUES
 ('Generico'),
 ('Frecuente');
 
 -- Insert Data into categorias
-INSERT INTO categorias (nombre_categoria) VALUES 
+INSERT INTO categorias (NombreCategoria) VALUES 
 ('Electrónica'), ('Hogar'), ('Deportes'), ('Ropa'), ('Alimentos'), ('Juguetes'), ('Libros'), 
 ('Muebles'), ('Belleza'), ('Salud'), ('Tecnología'), ('Automotriz'), ('Jardinería'), ('Oficina'), 
 ('Mascotas'), ('Viajes'), ('Juegos'), ('Herramientas'), ('Artículos de Cocina'), ('Accesorios'), 
@@ -146,7 +147,7 @@ INSERT INTO categorias (nombre_categoria) VALUES
 ('Pintura'), ('Dibujo');
 
 -- Insert Data into proveedores
-INSERT INTO proveedores (nombre_proveedor, telefono, correo, direccion) VALUES
+INSERT INTO proveedores (NombreProveedor, Telefono, Correo, Direccion) VALUES
 ('Proveedor A', '555-0001', 'contactoA@proveedora.com', 'Calle 1, Ciudad A'),
 ('Proveedor B', '555-0002', 'contactoB@proveedora.com', 'Calle 2, Ciudad B'),
 ('Proveedor C', '555-0003', 'contactoC@proveedora.com', 'Calle 3, Ciudad C'),
@@ -309,7 +310,7 @@ INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES
 ('Salvador', 'Maldonado', 3);
 
 -- Insert Data into producto
-INSERT INTO producto (stock, id_categoria, precio_compra, precio_venta, nombre_producto, descripcion, ubicacion_fotografia, id_catalogo) VALUES
+INSERT INTO producto (Stock, ID_Categoria, PrecioCompra, PrecioVenta, nombreProducto, Descripcion, ubicacionFotografia, ID_Catalogo) VALUES
 (50, 1, 100.00, 150.00, 'Televisor 50"', 'Televisor 4K UHD', 'imagenes/tv50.jpg', 1),
 (20, 2, 30.00, 50.00, 'Lámpara LED', 'Lámpara de escritorio LED', 'imagenes/lampara.jpg', 2),
 (15, 1, 200.00, 300.00, 'Smartphone', 'Smartphone de última generación', 'imagenes/smartphone.jpg', 1),
@@ -363,7 +364,7 @@ INSERT INTO producto (stock, id_categoria, precio_compra, precio_venta, nombre_p
 (402, 50, 25.00, 35.00, 'Gafas de Sol', 'Gafas de sol polarizadas', 'imagenes/gafas.jpg', 1);
 
 -- Insert Data into catalogo
-INSERT INTO catalogo (id_producto, descripcion, precio_producto, imagen) VALUES
+INSERT INTO catalogo (ID_Producto, Descripcion, imagen) VALUES
 (1, 'Televisor 4K UHD', 150.00, 'imagenes/tv50.jpg'),
 (2, 'Lámpara de escritorio LED', 50.00, 'imagenes/lampara.jpg'),
 (3, 'Smartphone de última generación', 300.00, 'imagenes/smartphone.jpg'),
@@ -416,7 +417,7 @@ INSERT INTO catalogo (id_producto, descripcion, precio_producto, imagen) VALUES
 (50, 'Mascarilla de protección', 18.00, 'imagenes/mascarilla.jpg');
 
 -- Insert Data into venta_factura
-INSERT INTO venta_factura (id_cliente, fecha_venta) VALUES
+INSERT INTO venta_factura (ID_Cliente, fecha_venta,total_venta) VALUES
 (1, '2025-05-01'), (2, '2025-05-02'), (3, '2025-05-03'), (4, '2025-05-04'), 
 (5, '2025-05-05'), (6, '2025-05-06'), (7, '2025-05-07'), (8, '2025-05-08'), 
 (9, '2025-05-09'), (10, '2025-05-10'), (11, '2025-05-11'), (12, '2025-05-12'), 
@@ -427,7 +428,7 @@ INSERT INTO venta_factura (id_cliente, fecha_venta) VALUES
 (29, '2025-05-29'), (30, '2025-05-30');
 
 -- Insert Data into detalle_venta_factura
-INSERT INTO detalle_venta_factura (id_producto, cantidad, numero_factura, precio_venta) VALUES
+INSERT INTO detalle_venta_factura (ID_Producto, Cantidad, NumeroFactura, precio_venta) VALUES
 (1, 2, 1, 150.00), (2, 1, 1, 50.00), (3, 3, 2, 300.00), (4, 1, 2, 700.00), 
 (5, 4, 3, 25.00), (6, 5, 3, 10.00), (7, 6, 4, 80.00), (8, 2, 4, 15.00), 
 (9, 1, 5, 200.00), (10, 3, 5, 90.00), (11, 4, 6, 30.00), (12, 5, 6, 12.00), 
@@ -438,7 +439,7 @@ INSERT INTO detalle_venta_factura (id_producto, cantidad, numero_factura, precio
 (29, 4, 15, 55.00), (30, 5, 15, 65.00);
 
 -- Insert Data into compra_factura
-INSERT INTO compra_factura (n_factura, id_proveedores, fecha) VALUES
+INSERT INTO compra_factura (ID_CompraFactura, ID_Proveedores, fecha_compra) VALUES
 (1001, 1, '2025-05-01 10:00:00'), (1002, 2, '2025-05-02 11:00:00'), 
 (1003, 3, '2025-05-03 12:00:00'), (1004, 4, '2025-05-04 13:00:00'), 
 (1005, 5, '2025-05-05 14:00:00'), (1006, 6, '2025-05-06 15:00:00'), 
@@ -446,7 +447,7 @@ INSERT INTO compra_factura (n_factura, id_proveedores, fecha) VALUES
 (1009, 9, '2025-05-09 18:00:00'), (1010, 10, '2025-05-10 19:00:00');
 
 -- Insert Data into detalle_compra_factura
-INSERT INTO detalle_compra_factura (cantidad, precio, id_compra_factura, id_producto) VALUES
+INSERT INTO detalle_compra_factura (Cantidad, PrecioCompra, ID_CompraFactura, ID_Producto) VALUES
 (5, 100.00, 1, 1), (10, 50.00, 1, 2), (3, 200.00, 2, 3), (7, 15.00, 2, 4), 
 (2, 300.00, 3, 5), (4, 80.00, 3, 6), (1, 400.00, 4, 7), (6, 20.00, 4, 8), 
 (8, 120.00, 5, 9), (5, 35.00, 5, 10);

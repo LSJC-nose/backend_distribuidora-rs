@@ -4,10 +4,10 @@ import { pool } from '../db.js';
 export const resumenVentasDiarias = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT DATE(v.fecha_venta) AS dia, SUM(dvf.precio_venta * dvf.Cantidad) AS total_ventas
+      `SELECT DATE(v.fecha_Venta) AS dia, SUM(dvf.PrecioVenta * dvf.Cantidad) AS total_ventas
       FROM Venta_factura v 
-      JOIN Detalle_venta_factura dvf ON v.numero_factura = dvf.numero_factura 
-      GROUP BY DATE(v.fecha_venta);`
+      JOIN Detalle_venta_factura dvf ON v.NumeroFactura = dvf.NumeroFactura
+      GROUP BY DATE(v.fecha_Venta);`
     );
     if (result.length === 0) {
       return res.status(404).json({
@@ -27,12 +27,12 @@ export const comprasPorCliente = async (req, res) => {
   try {
     const [result] = await pool.query(
       `SELECT 
-    c.nombre,
-    c.apellido,
-    COUNT(vf.numero_factura) AS compras
+    c.Nombre,
+    c.Apellido,
+    COUNT(vf.NumeroFactura) AS compras
     FROM cliente c
-    INNER JOIN venta_factura vf ON c.id_cliente = vf.id_cliente
-    GROUP BY c.id_cliente;`
+    INNER JOIN venta_factura vf ON c.ID_Cliente = vf.ID_Cliente
+    GROUP BY c.ID_Cliente;`
     );
     if (result.length === 0) {
       return res.status(404).json({
@@ -52,15 +52,15 @@ export const ProductosBajoStock = async (req, res) => {
   try {
     const [result] = await pool.query(
       `SELECT 
-         id_producto AS ID_Producto, 
-         nombre_producto AS nombreProducto, 
-         stock AS Stock, 
-         precio_compra AS PrecioCompra, 
-         precio_venta AS PrecioVenta, 
-         descripcion AS Descripcion, 
-         ubicacion_fotografia AS UbicacionFotografia 
-       FROM producto 
-       WHERE stock < 10;`
+          ID_Producto, 
+         NombreProducto, 
+         Stock, 
+         PrecioCompra, 
+         PrecioVenta, 
+         Descripcion, 
+         UbicacionFotografia 
+       FROM producto  
+       WHERE Stock < 10;`
     );
     if (result.length === 0) {
       return res.status(404).json({
