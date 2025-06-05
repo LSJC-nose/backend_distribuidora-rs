@@ -12,7 +12,7 @@ export const DB_DATABASE = process.env.DB_DATABASE || 'distribuidora_rs';
 export const PORT2 = process.env.PORT || 3000;
 export const DB_HOST2 = process.env.DB_HOST || 'localhost';
 export const DB_PORT2 = process.env.DB_PORT || 3306;
-export const DB_USER2 = process.env.DB_USER || 'Yosmar';
+export const DB_USER2 = process.env.DB_USER || 'yosmar';
 export const DB_PASSWORD2 = process.env.DB_PASSWORD || 'Ungrandia34!';
 export const DB_DATABASE2 = process.env.DB_DATABASE || 'rs_datamart';
 

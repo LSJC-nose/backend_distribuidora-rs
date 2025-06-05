@@ -36,7 +36,7 @@ app.use('/api', rutastipoCliente);
 app.use('/api', rutasdetalleventa);
 app.use('/api', rutasEstadisticas);
 app.use('/api', DetallesCompra);
-app.use('/api', rutasAI); // Usa las rutas de IA
+app.use('/ia', rutasAI); // Usa las rutas de IA
 
 app.use((req, res, next) => {
   res.status(404).json({
