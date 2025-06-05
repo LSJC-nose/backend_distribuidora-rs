@@ -45,7 +45,7 @@ CREATE TABLE producto (
     ID_Categoria INT,
     PrecioCompra DOUBLE,
     PrecioVenta DOUBLE,
-    NombreProducto VARCHAR(30),
+    nombreProducto VARCHAR(30),
     Descripcion VARCHAR(60),
     UbicacionFotografia VARCHAR(160),
     ID_Catalogo INT,

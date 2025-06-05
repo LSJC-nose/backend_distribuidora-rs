@@ -11,6 +11,7 @@ import rutastipoCliente from './routes/tipoCliente.routes.js';
 import rutasdetalleventa from "./routes/detalles_ventas.routes.js";
 import rutasEstadisticas from "./routes/estadisticas.routes.js";
 import DetallesCompra  from './routes/detalleCompra.js';
+import rutasAI from './routes/ia.routes.js'; // Importa las rutas de IA
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/api', rutastipoCliente);
 app.use('/api', rutasdetalleventa);
 app.use('/api', rutasEstadisticas);
 app.use('/api', DetallesCompra);
+app.use('/api', rutasAI); // Usa las rutas de IA
 
 app.use((req, res, next) => {
   res.status(404).json({

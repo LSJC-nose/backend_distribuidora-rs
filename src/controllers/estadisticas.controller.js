@@ -52,13 +52,12 @@ export const ProductosBajoStock = async (req, res) => {
   try {
     const [result] = await pool.query(
       `SELECT 
-          ID_Producto, 
+         ID_Producto, 
          NombreProducto, 
          Stock, 
          PrecioCompra, 
          PrecioVenta, 
-         Descripcion, 
-         UbicacionFotografia 
+         Descripcion
        FROM producto  
        WHERE Stock < 10;`
     );
