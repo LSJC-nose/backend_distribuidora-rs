@@ -4,7 +4,7 @@ import { pool } from '../db.js';
 
 // Obtener todos los clientes
 export const obtenerDetalle= async (req, res) => {
-  const { id_venta } = req.params; 
+  const { NumeroFactura } = req.params; 
   try {
     const [result] = await pool.query(
     `
@@ -21,7 +21,7 @@ export const obtenerDetalle= async (req, res) => {
       INNER JOIN Producto p ON dv.ID_Producto = p.ID_Producto
       WHERE dv.NumeroFactura = ?
     `,
-      [id_venta]
+      [NumeroFactura]
     );
 
     if (result.length === 0) {

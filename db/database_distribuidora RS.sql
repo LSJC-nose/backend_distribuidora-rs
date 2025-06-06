@@ -93,7 +93,7 @@ CREATE TABLE venta_factura (
     numeraFactura INT AUTO_INCREMENT PRIMARY KEY,
     ID_Cliente INT,
     fecha_venta DATETIME,
-    total_venta
+    total_venta float,
     FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente) ON DELETE RESTRICT
 );
 

@@ -49,10 +49,10 @@ export const registrarProducto = async (req, res) => {
       ID_Categoria, 
       PrecioCompra, 
       PrecioVenta,
-       nombreProducto, 
-       Descripcion, 
-       UbicacionFotografia,
-        ID_catalogo 
+      nombreProducto, 
+      Descripcion, 
+      UbicacionFotografia,
+      ID_catalogo 
       } = req.body;
 
     if (!Stock || !ID_Categoria || !PrecioCompra || !PrecioVenta || !nombreProducto  ) {
@@ -81,7 +81,7 @@ export const registrarProducto = async (req, res) => {
 };
 
 // Actualizar un producto por su ID
-export const actualizarProducto = async (req, res) => {
+export const actualizarProductos = async (req, res) => {
   try {
     const { id } = req.params;
     const datos = req.body;

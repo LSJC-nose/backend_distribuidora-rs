@@ -13,14 +13,14 @@ router.get('/venta', obtenerVentasConDetalles);
 
 router.get('/obtenerventas', obtenerVentas);
 
-router.get('/obtenerventaporid/:id_venta', obtenerVentaPorId);
+router.get('/obtenerventaporid/:NumeroFactura', obtenerVentaPorId);
 
 router.delete('/eliminarventa/:NumeroFactura', eliminarVenta);
 
 router.post('/registrarventas', registrarVenta);
 
 // Ruta para actualizar una venta
-router.patch('/actualizarventa/:id_venta', actualizarVenta);
+router.patch('/actualizarventa/:NumeroFactura', actualizarVenta);
 
 
 export default router;

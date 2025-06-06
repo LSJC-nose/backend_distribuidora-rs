@@ -75,7 +75,7 @@ export const eliminarVenta = async (req, res) => {
 // Obtener una venta específica por id_venta
 export const obtenerVentaPorId = async (req, res) => {
   try {
-    const { id_venta } = req.params;
+    const { NumeroFactura } = req.params;
 
     const [venta] = await pool.query(`
       SELECT 
@@ -85,7 +85,7 @@ export const obtenerVentaPorId = async (req, res) => {
         total_venta
       FROM venta_factura
       WHERE NumeroFactura = ?
-    `, [id_venta]);
+    `, [NumeroFactura]);
 
     if (venta.length === 0) {
       return res.status(404).json({ mensaje: 'Venta no encontrada' });
@@ -142,7 +142,7 @@ export const actualizarVenta = async (req, res) => {
     // Actualizar la venta
     const [ventaResult] = await pool.query(
       'UPDATE Venta_factura SET ID_Cliente = ?, fecha_venta = ? WHERE NumeroFactura = ?',
-      [ID_Cliente, fechaVentaFormateada, numero_factura]
+      [ID_Cliente, fechaVentaFormateada, NumeroFactura]
     );
 
     if (ventaResult.affectedRows === 0) {
