@@ -93,8 +93,8 @@ export const registrarCompras = async (req, res) => {
 
     // Insertar en Compra_factura incluyendo nombre_mes y dia_semana
     const [compraResult] = await pool.query(
-      'INSERT INTO Compra_factura (ID_Proveedores, fecha_compra, total_compra, nombre_mes, dia_semana) VALUES (?, ?, ?, ?, ?)',
-      [ID_Proveedores, fecha_compra, total_compra, nombreMes, diaSemana]
+      'INSERT INTO Compra_factura (ID_Proveedores, fecha_compra, total_compra) VALUES (?, ?, ?)',
+      [ID_Proveedores, fecha_compra, total_compra]// nombreMes, diaSemana]
     );
 
     const ID_CompraFactura = compraResult.insertId;

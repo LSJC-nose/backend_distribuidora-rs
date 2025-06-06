@@ -12,7 +12,7 @@ export const obtenerClientes= async (req, res) => {
  FROM 
     tipoCliente c 
  INNER JOIN 
-    Cliente a ON c.ID_tipoCliente = a.ID_tipoCliente`);
+    Cliente a ON c.ID_TipoCliente = a.ID_TipoCliente`);
 
     res.json(result);
   } catch (error) {
@@ -48,22 +48,22 @@ export const registrarCliente = async (req, res) => {
     const { 
       Nombre, 
       Apellido, 
-      ID_tipoCliente, 
+      ID_TipoCliente, 
     } = req.body;
 
     // Validación básica de campos requeridos
-    if (!Nombre || !Apellido || !ID_tipoCliente ) {
+    if (!Nombre || !Apellido || !ID_TipoCliente ) {
       return res.status(400).json({
         mensaje: 'Faltan campos requeridos: nombreCliente, ApellidoCliente o tipoCliente .'
       });
     }
 
     const [result] = await pool.query(
-      'INSERT INTO Cliente (Nombre, Apellido, ID_tipoCliente) VALUES (?, ?, ?)',
+      'INSERT INTO Cliente (Nombre, Apellido, ID_TipoCliente) VALUES (?, ?, ?)',
       [
         Nombre,
         Apellido,
-        ID_tipoCliente
+        ID_TipoCliente
       ]
     );
 
