@@ -9,7 +9,7 @@ CREATE TABLE Hecho_Venta (
     ID_Producto INT ,
     Cantidad INT NOT NULL,
 	PrecioVenta DOUBLE NULL,
-    Total int,
+    total_venta int,
     PRIMARY KEY (NumeroFactura, ID_Detalle)
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE Dim_Cliente (
     ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL,
     Apellido VARCHAR(50) NOT NULL,
-    ID_tipoCliente Int NOT NULL
+    ID_TipoCliente Int NOT NULL
 );
 
 
